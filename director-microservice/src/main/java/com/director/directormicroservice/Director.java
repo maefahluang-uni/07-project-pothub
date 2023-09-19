@@ -1,5 +1,10 @@
 package com.director.directormicroservice;
 
-public class Director {
+import java.util.Date;
 
+public class Director {
+    private Long movid_id;
+    private String firstname;
+    private String lastname;
+    private Date birthday;
 }
