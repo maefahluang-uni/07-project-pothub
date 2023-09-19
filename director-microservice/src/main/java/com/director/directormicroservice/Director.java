@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Director {
@@ -15,6 +18,15 @@ public class Director {
     private String firstname;
     private String lastname;
     private Date birthday;
+
+    // One-to-Many relationship with Advertise
+    @OneToMany(mappedBy = "director")
+    private List<Advertise> advertisements;
+
+    // Many-to-One relationship with Company
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public Director() {
     }

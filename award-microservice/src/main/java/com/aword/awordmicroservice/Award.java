@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Award {
@@ -12,6 +15,16 @@ public class Award {
     private Long award_id;
     private String award_name;
     private String genre;
+
+    // Many-to-One relationship with Movie
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    // One-to-One relationship with Advertise
+    @OneToOne
+    @JoinColumn(name = "advertise_id", unique = true)
+    private Advertise advertise;
 
     public Award() {
     }

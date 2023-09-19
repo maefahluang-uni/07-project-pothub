@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Movie {
@@ -14,6 +18,19 @@ public class Movie {
     private Long movid_id;
     private String title;
     private Date year;
+
+    // One-to-Many relationship with Award
+    @OneToMany(mappedBy = "movie")
+    private List<Award> awards;
+
+    // Many-to-One relationship with Director
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    private Director director;
+
+    // One-to-One relationship with Advertise
+    @OneToOne(mappedBy = "movie")
+    private Advertise advertise;
 
     public Movie(Long movid_id, String title, Date year) {
         this.movid_id = movid_id;
