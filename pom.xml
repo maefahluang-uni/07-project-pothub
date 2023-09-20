@@ -20,11 +20,6 @@
 		<module>pubsub-advertisement</module>
 		<module>pubsub-filmingmovie</module>
 		<module>eureka-mainpage-server</module>
-		<module>director-microservice</module>
-		<module>company-microservice</module>
-		<module>movie-microservice</module>
-		<module>award-microservice</module>
-		<module>adverstis-microservice</module>
 	</modules>
 
 
