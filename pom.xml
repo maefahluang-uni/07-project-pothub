@@ -19,7 +19,6 @@
 	<modules>
 		<module>pubsub-advertisement</module>
 		<module>pubsub-filmingmovie</module>
-		<module>eureka-mainpage-server</module>
 	</modules>
 
 

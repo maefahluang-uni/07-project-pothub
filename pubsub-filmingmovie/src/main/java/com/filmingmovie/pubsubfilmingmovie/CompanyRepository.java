@@ -1,4 +1,4 @@
-package com.advertisement.pubsubadvertisement;
+package com.filmingmovie.pubsubfilmingmovie;
 
 import org.springframework.data.repository.CrudRepository;
 

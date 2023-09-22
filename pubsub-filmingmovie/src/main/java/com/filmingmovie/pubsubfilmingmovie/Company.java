@@ -1,4 +1,6 @@
-package com.advertisement.pubsubadvertisement;
+package com.filmingmovie.pubsubfilmingmovie;
+
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
