@@ -1,4 +1,4 @@
-package com.filmingmovie.pubsubfilmingmovie;
+package com.microservice.filmingmoviemicroservic;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

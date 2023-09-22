@@ -1,4 +1,4 @@
-package com.filmingmovie.pubsubfilmingmovie;
+package com.microservice.filmingmoviemicroservic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

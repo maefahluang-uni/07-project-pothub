@@ -18,6 +18,7 @@
 
 	<modules>
 		<module>pubsub-filmingmovie</module>
+		<module>filmingmovie-microservic</module>
 		<module>eureka-mainpage-server</module>
 	</modules>
 
