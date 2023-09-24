@@ -16,15 +16,15 @@ public class Award {
     private String award_name;
     private String genre;
 
-    // Many-to-One relationship with Movie
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    // // Many-to-One relationship with Movie
+    // @ManyToOne
+    // @JoinColumn(name = "movie_id")
+    // private Movie movie;
 
-    // One-to-One relationship with Advertise
-    @OneToOne
-    @JoinColumn(name = "advertise_id", unique = true)
-    private Advertise advertise;
+    // // One-to-One relationship with Advertise
+    // @OneToOne
+    // @JoinColumn(name = "advertise_id", unique = true)
+    // private Advertise advertise;
 
     public Award() {
     }
@@ -59,20 +59,20 @@ public class Award {
         this.genre = genre;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
+    // public Movie getMovie() {
+    // return movie;
+    // }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
+    // public void setMovie(Movie movie) {
+    // this.movie = movie;
+    // }
 
-    public Advertise getAdvertise() {
-        return advertise;
-    }
+    // public Advertise getAdvertise() {
+    // return advertise;
+    // }
 
-    public void setAdvertise(Advertise advertise) {
-        this.advertise = advertise;
-    }
+    // public void setAdvertise(Advertise advertise) {
+    // this.advertise = advertise;
+    // }
 
 }

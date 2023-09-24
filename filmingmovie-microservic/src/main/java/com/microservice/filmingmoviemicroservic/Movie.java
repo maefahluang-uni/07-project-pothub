@@ -20,18 +20,18 @@ public class Movie {
     private String title;
     private Date year;
 
-    // One-to-Many relationship with Award
-    @OneToMany(mappedBy = "movie")
-    private List<Award> awards;
+    // // One-to-Many relationship with Award
+    // @OneToMany(mappedBy = "movie")
+    // private List<Award> awards;
 
-    // Many-to-One relationship with Director
-    @ManyToOne
-    @JoinColumn(name = "director_id")
-    private Director director;
+    // // Many-to-One relationship with Director
+    // @ManyToOne
+    // @JoinColumn(name = "director_id")
+    // private Director director;
 
-    // One-to-One relationship with Advertise
-    @OneToOne(mappedBy = "movie")
-    private Advertise advertise;
+    // // One-to-One relationship with Advertise
+    // @OneToOne(mappedBy = "movie")
+    // private Advertise advertise;
 
     public Movie(Long movid_id, String title, Date year) {
         this.movid_id = movid_id;
@@ -63,28 +63,28 @@ public class Movie {
         this.year = year;
     }
 
-    public List<Award> getAwards() {
-        return awards;
-    }
+    // public List<Award> getAwards() {
+    // return awards;
+    // }
 
-    public void setAwards(List<Award> awards) {
-        this.awards = awards;
-    }
+    // public void setAwards(List<Award> awards) {
+    // this.awards = awards;
+    // }
 
-    public Director getDirector() {
-        return director;
-    }
+    // public Director getDirector() {
+    // return director;
+    // }
 
-    public void setDirector(Director director) {
-        this.director = director;
-    }
+    // public void setDirector(Director director) {
+    // this.director = director;
+    // }
 
-    public Advertise getAdvertise() {
-        return advertise;
-    }
+    // public Advertise getAdvertise() {
+    // return advertise;
+    // }
 
-    public void setAdvertise(Advertise advertise) {
-        this.advertise = advertise;
-    }
+    // public void setAdvertise(Advertise advertise) {
+    // this.advertise = advertise;
+    // }
 
 }
