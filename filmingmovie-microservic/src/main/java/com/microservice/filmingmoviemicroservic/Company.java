@@ -43,4 +43,12 @@ public class Company {
         this.company_name = company_name;
     }
 
+    public List<Advertise> getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(List<Advertise> advertisements) {
+        this.advertisements = advertisements;
+    }
+
 }

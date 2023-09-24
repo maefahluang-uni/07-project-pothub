@@ -71,4 +71,20 @@ public class Director {
         this.birthday = birthday;
     }
 
+    public List<Advertise> getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(List<Advertise> advertisements) {
+        this.advertisements = advertisements;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
 }

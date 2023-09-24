@@ -63,4 +63,28 @@ public class Movie {
         this.year = year;
     }
 
+    public List<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(List<Award> awards) {
+        this.awards = awards;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public Advertise getAdvertise() {
+        return advertise;
+    }
+
+    public void setAdvertise(Advertise advertise) {
+        this.advertise = advertise;
+    }
+
 }

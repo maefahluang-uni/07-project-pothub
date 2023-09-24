@@ -59,4 +59,20 @@ public class Award {
         this.genre = genre;
     }
 
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Advertise getAdvertise() {
+        return advertise;
+    }
+
+    public void setAdvertise(Advertise advertise) {
+        this.advertise = advertise;
+    }
+
 }
