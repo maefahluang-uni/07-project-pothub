@@ -24,14 +24,14 @@ public class Movie {
     // @OneToMany(mappedBy = "movie")
     // private List<Award> awards;
 
-    // // Many-to-One relationship with Director
-    // @ManyToOne
-    // @JoinColumn(name = "director_id")
-    // private Director director;
+    // Many-to-One relationship with Director
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    private Director director;
 
-    // // One-to-One relationship with Advertise
-    // @OneToOne(mappedBy = "movie")
-    // private Advertise advertise;
+    // One-to-One relationship with Advertise
+    @OneToOne(mappedBy = "movie")
+    private Advertise advertise;
 
     public Movie(Long movid_id, String title, Date year) {
         this.movid_id = movid_id;
@@ -71,20 +71,20 @@ public class Movie {
     // this.awards = awards;
     // }
 
-    // public Director getDirector() {
-    // return director;
-    // }
+    public Director getDirector() {
+        return director;
+    }
 
-    // public void setDirector(Director director) {
-    // this.director = director;
-    // }
+    public void setDirector(Director director) {
+        this.director = director;
+    }
 
-    // public Advertise getAdvertise() {
-    // return advertise;
-    // }
+    public Advertise getAdvertise() {
+        return advertise;
+    }
 
-    // public void setAdvertise(Advertise advertise) {
-    // this.advertise = advertise;
-    // }
+    public void setAdvertise(Advertise advertise) {
+        this.advertise = advertise;
+    }
 
 }

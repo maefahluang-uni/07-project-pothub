@@ -20,14 +20,14 @@ public class Director {
     private String lastname;
     private Date birthday;
 
-    // // One-to-Many relationship with Advertise
-    // @OneToMany(mappedBy = "director")
-    // private List<Advertise> advertisements;
+    // One-to-Many relationship with Advertise
+    @OneToMany(mappedBy = "director")
+    private List<Advertise> advertisements;
 
-    // // Many-to-One relationship with Company
-    // @ManyToOne
-    // @JoinColumn(name = "company_id")
-    // private Company company;
+    // Many-to-One relationship with Company
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public Director() {
     }
@@ -71,20 +71,20 @@ public class Director {
         this.birthday = birthday;
     }
 
-    // public List<Advertise> getAdvertisements() {
-    // return advertisements;
-    // }
+    public List<Advertise> getAdvertisements() {
+        return advertisements;
+    }
 
-    // public void setAdvertisements(List<Advertise> advertisements) {
-    // this.advertisements = advertisements;
-    // }
+    public void setAdvertisements(List<Advertise> advertisements) {
+        this.advertisements = advertisements;
+    }
 
-    // public Company getCompany() {
-    // return company;
-    // }
+    public Company getCompany() {
+        return company;
+    }
 
-    // public void setCompany(Company company) {
-    // this.company = company;
-    // }
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
 }

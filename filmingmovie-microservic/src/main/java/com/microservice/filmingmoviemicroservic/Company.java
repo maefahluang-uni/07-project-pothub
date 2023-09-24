@@ -15,9 +15,9 @@ public class Company {
     private Long company_id;
     private String company_name;
 
-    // // One-to-Many relationship with Advertise
-    // @OneToMany(mappedBy = "company")
-    // private List<Advertise> advertisements;
+    // One-to-Many relationship with Advertise
+    @OneToMany(mappedBy = "company")
+    private List<Advertise> advertisements;
 
     public Company() {
     }
@@ -43,12 +43,12 @@ public class Company {
         this.company_name = company_name;
     }
 
-    // public List<Advertise> getAdvertisements() {
-    // return advertisements;
-    // }
+    public List<Advertise> getAdvertisements() {
+        return advertisements;
+    }
 
-    // public void setAdvertisements(List<Advertise> advertisements) {
-    // this.advertisements = advertisements;
-    // }
+    public void setAdvertisements(List<Advertise> advertisements) {
+        this.advertisements = advertisements;
+    }
 
 }
