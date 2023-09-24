@@ -20,7 +20,6 @@ public class PubsubFilmingmovieConfig {
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        // TODO: add kafka configuration here
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "Filmingmovie");
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
