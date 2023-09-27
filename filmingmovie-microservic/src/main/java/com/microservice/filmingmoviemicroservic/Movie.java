@@ -20,9 +20,9 @@ public class Movie {
     private String title;
     private Date year;
 
-    // // One-to-Many relationship with Award
-    // @OneToMany(mappedBy = "movie")
-    // private List<Award> awards;
+    // One-to-Many relationship with Award
+    @OneToMany(mappedBy = "movie")
+    private List<Award> awards;
 
     // Many-to-One relationship with Director
     @ManyToOne
@@ -63,13 +63,13 @@ public class Movie {
         this.year = year;
     }
 
-    // public List<Award> getAwards() {
-    // return awards;
-    // }
+    public List<Award> getAwards() {
+        return awards;
+    }
 
-    // public void setAwards(List<Award> awards) {
-    // this.awards = awards;
-    // }
+    public void setAwards(List<Award> awards) {
+        this.awards = awards;
+    }
 
     public Director getDirector() {
         return director;

@@ -14,30 +14,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AwardController {
 
-    // @Autowired
-    // private AwardRepository awardRepository;
+    @Autowired
+    private AwardRepository awardRepository;
 
-    // @GetMapping("/awards/{name}")
-    // public ResponseEntity<List<Award>> getAwardsByName(@PathVariable String name)
-    // {
-    // // Use the repository method to find awards by name
-    // List<Award> awards = awardRepository.findByName(name);
+    @GetMapping("/awards/{name}")
+    public ResponseEntity<List<Award>> getAwardsByName(@PathVariable String name) {
+        // Use the repository method to find awards by name
+        List<Award> awards = awardRepository.findByName(name);
 
-    // if (awards.isEmpty()) {
-    // // If no awards are found, return a 404 Not Found status
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // } else {
-    // // If awards are found, return them with a 200 OK status
-    // return new ResponseEntity<>(awards, HttpStatus.OK);
-    // }
-    // }
+        if (awards.isEmpty()) {
+            // If no awards are found, return a 404 Not Found status
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            // If awards are found, return them with a 200 OK status
+            return new ResponseEntity<>(awards, HttpStatus.OK);
+        }
+    }
 
-    // @PostMapping("/awards")
-    // public ResponseEntity<Award> createAward(@RequestBody Award award) {
-    // // Perform the logic to save the new award to the database
-    // Award savedAward = awardRepository.save(award);
+    @PostMapping("/awards")
+    public ResponseEntity<Award> createAward(@RequestBody Award award) {
+        // Perform the logic to save the new award to the database
+        Award savedAward = awardRepository.save(award);
 
-    // // Return a ResponseEntity with the saved award and a status code
-    // return new ResponseEntity<>(savedAward, HttpStatus.CREATED);
-    // }
+        // Return a ResponseEntity with the saved award and a status code
+        return new ResponseEntity<>(savedAward, HttpStatus.CREATED);
+    }
 }

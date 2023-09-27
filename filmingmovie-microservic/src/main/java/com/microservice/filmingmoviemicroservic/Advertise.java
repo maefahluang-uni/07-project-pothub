@@ -20,9 +20,9 @@ public class Advertise {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    // // One-to-One relationship with Award
-    // @OneToOne(mappedBy = "advertise")
-    // private Award award;
+    // One-to-One relationship with Award
+    @OneToOne(mappedBy = "advertise")
+    private Award award;
 
     // Many-to-One relationship with Director
     @ManyToOne
@@ -66,13 +66,13 @@ public class Advertise {
         this.movie = movie;
     }
 
-    // public Award getAward() {
-    // return award;
-    // }
+    public Award getAward() {
+        return award;
+    }
 
-    // public void setAward(Award award) {
-    // this.award = award;
-    // }
+    public void setAward(Award award) {
+        this.award = award;
+    }
 
     public Director getDirector() {
         return director;

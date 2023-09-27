@@ -13,25 +13,25 @@ public class Award {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long award_id;
-    private String award_name;
+    private String name;
     private String genre;
 
-    // // Many-to-One relationship with Movie
-    // @ManyToOne
-    // @JoinColumn(name = "movie_id")
-    // private Movie movie;
+    // Many-to-One relationship with Movie
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
-    // // One-to-One relationship with Advertise
-    // @OneToOne
-    // @JoinColumn(name = "advertise_id", unique = true)
-    // private Advertise advertise;
+    // One-to-One relationship with Advertise
+    @OneToOne
+    @JoinColumn(name = "advertise_id", unique = true)
+    private Advertise advertise;
 
     public Award() {
     }
 
     public Award(Long award_id, String award_name, String genre) {
         this.award_id = award_id;
-        this.award_name = award_name;
+        this.name = award_name;
         this.genre = genre;
     }
 
@@ -44,11 +44,11 @@ public class Award {
     }
 
     public String getAward_name() {
-        return award_name;
+        return name;
     }
 
     public void setAward_name(String award_name) {
-        this.award_name = award_name;
+        this.name = award_name;
     }
 
     public String getGenre() {
@@ -59,20 +59,20 @@ public class Award {
         this.genre = genre;
     }
 
-    // public Movie getMovie() {
-    // return movie;
-    // }
+    public Movie getMovie() {
+        return movie;
+    }
 
-    // public void setMovie(Movie movie) {
-    // this.movie = movie;
-    // }
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
-    // public Advertise getAdvertise() {
-    // return advertise;
-    // }
+    public Advertise getAdvertise() {
+        return advertise;
+    }
 
-    // public void setAdvertise(Advertise advertise) {
-    // this.advertise = advertise;
-    // }
+    public void setAdvertise(Advertise advertise) {
+        this.advertise = advertise;
+    }
 
 }
