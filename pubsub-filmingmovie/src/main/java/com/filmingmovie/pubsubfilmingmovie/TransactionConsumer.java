@@ -6,10 +6,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PubsubFilmingmovie {
-    Logger LOG = LoggerFactory.getLogger(PubsubFilmingmovie.class);
+public class TransactionConsumer {
+    Logger LOG = LoggerFactory.getLogger(TransactionConsumer.class);
 
-    @KafkaListener(topics = "Filmingmovie")
+    @KafkaListener(topics = "filmingmovie")
     void listener(String transaction) {
         LOG.info(transaction);
     }
