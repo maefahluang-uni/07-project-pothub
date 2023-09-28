@@ -38,7 +38,7 @@ In `filmingmovie-microservice`, the `Advertise` ,`Award` ,`Company` ,`Director` 
 - add relationship annotation to an attribute that link to the other class such as @ManyToOne with proper fetch and cascade so that when a post is fetched, user is also fetched if existed. When a post is saved, its author is also saved. Many posts can be created by a user.
 
 # Complete the rest Service
-The service is to provide a basic REST interface as follows:
+In `filmingmovie-microservice`, the service is to provide a basic REST interface as follows:
 ### AdvertiseController
 - `POST /advertises`. Creates a `Concert`. The body of the HTTP request message contains a representation of the new concert (other than the unique ID) to create. The service generates the concert's ID via the database, and returns a HTTP response of 201 (created).
 ### AwardController
@@ -71,9 +71,19 @@ The service is to provide a basic REST interface as follows:
 
 - `DELETE /movies`. Deletes all `Concert`s, and returns a 204 (no content) status code.
 
-# P
-
-
+# Complete the Repository
+In `filmingmovie-microservice`, This interface is a Spring Data repository that uses JPA to access the database. It should extend CrudRepository as following guideline:
+### AdvertiseRepository
+- Only extend `CrudRepository <Advertise,Long>`
+### AwardRepository
+- Extend `CrudRepository <Award,Long>`
+- Define a single method `findByName(String name)` that returns a Award given its name.
+### DirectorRepository
+- Extend `CrudRepository <Director,Long>`
+- Define a single method `findAll()` that returns a all of directors.
+### MovieRepository
+- Extend `CrudRepository <movie,Long>`
+- Define a two method `findByTitle(String title)` and `findAll()` that that returns a Movie given its title and sort them all.
 # List your group's member's below.
 1. 652110280 Nuddanai Klaiklin
 2. 652110318 Jeeraphat Chantra
