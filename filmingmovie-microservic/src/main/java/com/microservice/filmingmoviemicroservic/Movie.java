@@ -33,6 +33,10 @@ public class Movie {
     @OneToOne(mappedBy = "movie")
     private Advertise advertise;
 
+    public Movie(){
+
+    }
+
     public Movie(Long movid_id, String title, Date year) {
         this.movid_id = movid_id;
         this.title = title;
