@@ -80,6 +80,7 @@ public class MovieController {
             Movie savedMovie = movieRepository.save(existingMovie);
 
             // Return a ResponseEntity with the saved movie and a 200 OK status
+
             return new ResponseEntity<>(savedMovie, HttpStatus.OK);
         } else {
             // Handle the case when the existing movie is null (should not occur)
