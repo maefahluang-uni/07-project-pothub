@@ -9,22 +9,24 @@
 <body>
     <h1>ADD Movie</h1>
     
-    <form id="postForm" action="http://localhost:8200/movies" method="POST" enctype="application/json">
+    <form id="postForm" action="http://127.0.0.1:5500/movies" method="POST" enctype="application/json">
         <label for="movieName">Movie Title:</label>
         <input type="text" id="title" name="title" required>
         <br>
         <input type="submit" value="Post">
     </form>
+    <!--http://localhost:8200/movies-->
     <div id="displayPost"></div>
     <script>
         function fetchPosts() {
             $("#displayPost").html(""); // Clear previous movie names
             // Make an AJAX request to fetch movie names
             $.ajax({
-                url: 'http://localhost:8200/movies',// Replace with your Spring Boot endpoint for fetching movies
+                url: 'http://127.0.0.1:5500/movies',// Replace with your Spring Boot endpoint for fetching movies
                 method: 'GET',
-                dataType: 'json',
                 mode: 'no-cors',
+                dataType: 'json',
+                
                 success: function (response) {
                     var movieList = $('#displayPost');
                     movieList.empty(); // Clear previous movies
@@ -45,10 +47,10 @@
             var postData = JSON.stringify({ title: movieName });
             // Make an AJAX request to submit the movie name
             $.ajax({
-                url: 'http://localhost:8200/movies', // Replace with your Spring Boot endpoint for creating movies
+                url: 'http://127.0.0.1:5500/movies', // Replace with your Spring Boot endpoint for creating movies
                 method: 'POST', // Set the content type to JSON
                 data: postData, // Convert data to JSON format
-                
+                mode: 'no-cors',
                 success: function (response) {
                     console.log('Movie name submitted successfully:', response);
                     fetchPosts(); // Fetch and refresh the movie list
