@@ -1,64 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        /* สไตล์ของ Navbar */
-        ul.navbar {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            background-color: #333;
-            overflow: hidden;
-        }
-
-        /* สไตล์ของ Navbar Items (ลิงก์) */
-        ul.navbar li {
-            float: left;
-        }
-
-        ul.navbar li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px; /* ปรับแต่งระยะห่างด้วย padding */
-            text-decoration: none;
-        }
-
-        /* สไตล์เมื่อนำเม้าส์ Hover ที่ลิงก์ */
-        ul.navbar li a:hover {
-            background-color: #444;
-        }
-        
-
-    </style>
+    <title>รายการหนัง</title>
 </head>
 <body>
-    <ul class="navbar">
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="Movie.html">Movie</a></li>
-        <li><a href="#">Director</a></li>
-        <li><a href="#">Award</a></li>
+    <h1>รายการหนัง</h1>
+    <ul id="movie-list">
+        <!-- รายการหนังจะถูกแสดงที่นี่ -->
     </ul>
-    <a href="AddMovie.html">Add Movie</a>
-    <p id="data-container"></p>
+
+    <script>
+        // ทำการดึงข้อมูลจาก API และแสดงรายการหนัง
+        fetch('http://localhost:8200/movies', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            const movieList = document.getElementById('movie-list');
+            data.forEach(movie => {
+                const listItem = document.createElement('li');
+                listItem.textContent = movie.title;
+                movieList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+        });
+    </script>
 </body>
-<script>
-// ดึงข้อมูล JSON จาก URL
-// ดึงข้อมูล JSON จากไฟล์
-fetch('http://localhost:8200/movies')
-  .then(response => response.json())
-  .then(data => {
-    // แสดงข้อมูลบน HTML
-    const dataContainer = document.getElementById('data-container');
-    dataContainer.innerHTML = `
-      <p>Name: ${data.title}</p>
-    `;
-  })
-  .catch(error => {
-    console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
-  });
-
-
-
-</script>
 </html>
