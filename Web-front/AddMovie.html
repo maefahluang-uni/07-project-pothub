@@ -3,82 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Submit Movie Name</title>
 </head>
 <body>
-    <body>
-        <h1>ส่งชื่อหนัง</h1>
-        
-        <form id="postForm" action="" method="POST">
-            <label for="movieName">ชื่อหนัง:</label>
-            <input type="text" id="title" name="title" required>
-            <br>
-            <input type="submit" value="ส่งข้อมูล">
-        </form>
-        <div id="displayPost">
+    <h1>ส่งชื่อหนัง</h1>
     
-        </div>
-        <script>
-            // Fetch the username from localStorage
-            var username = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).username : null;
-            function dateToISOButLocal(date) {
-                return date.toLocaleString('sv').replace(' ', 'T');
-            }
-            // Function to fetch and display posts
-            function fetchPosts() {
-                $("#displayPost").html(""); // Clear concert list
-                $.ajax({
-                    url: 'http://localhost:8200/posts', // Replace with your backend API URL to fetch posts
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        var postList = $('#displayPost');
-                        postList.empty(); // Clear previous posts
-                        response.forEach(function (post) {
-                            var postItem = $('<div class="post-item"><strong>' + post.title + '</strong>: ' + post.body + '</div>');
-                            postList.append(postItem);
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.log('Error fetching posts:', error);
-                    }
-                });
-            }
-    
-            // Function to handle form submission and post message
-            $('#postForm').submit(function (e) {
-                e.preventDefault();
-                var userId = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).userId : null;
-                var postData = {
-                    title:  $('#title').val(),
-                    body: $('#body').val(),
-                    createdAt: dateToISOButLocal(new Date()),
-                    author: {
-                        id: userId
-                    }
-                };
-                console.log(localStorage.getItem('userInfo'));
-                console.log('Post data:', JSON.stringify(postData));
-                $.ajax({
-                    url: 'http://localhost:8200/posts', // Replace with your backend API URL to save the post
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(postData),
-                    success: function (response) {
-                        console.log('Post successful:', response);
-                        fetchPosts(); // Fetch and refresh the post list
-                    },
-                    error: function (xhr, status, error) {
-                        console.log('Error posting message:', error);
-                    }
-                });
+    <form id="postForm" action="" method="POST">
+        <label for="movieName">ชื่อหนัง:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <input type="submit" value="ส่งข้อมูล">
+    </form>
+    <div id="displayPost"></div>
+    <script>
+        function fetchPosts() {
+            $("#displayPost").html(""); // Clear previous movie names
+            // Make an AJAX request to fetch movie names
+            $.ajax({
+                url: '/movies', // Replace with your Spring Boot endpoint for fetching movies
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displayPost');
+                    movieList.empty(); // Clear previous movies
+                    response.forEach(function (movie) {
+                        var movieItem = $('<div><strong>' + movie.title + '</strong></div>');
+                        movieList.append(movieItem);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie names:', error);
+                }
             });
-    
-            // Fetch and display posts on page load
-            $(document).ready(function () {
-                fetchPosts();
+        }
+
+        $('#postForm').submit(function (e) {
+            e.preventDefault();
+            var movieName = $('#title').val();
+            // Make an AJAX request to submit the movie name
+            $.ajax({
+                url: '/movies', // Replace with your Spring Boot endpoint for creating movies
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ title: movieName }),
+                success: function (response) {
+                    console.log('Movie name submitted successfully:', response);
+                    fetchPosts(); // Fetch and refresh the movie list
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error submitting movie name:', error);
+                }
             });
-        </script>
-    </body>
+        });
+
+        // Fetch and display movie names on page load
+        $(document).ready(function () {
+            fetchPosts();
+        });
+    </script>
 </body>
 </html>
