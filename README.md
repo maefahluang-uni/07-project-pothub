@@ -5,23 +5,50 @@ Please use this template for your project.
 How to use 
 =============
 Get Start With Outside The `Visual studio Code`
-````
-zkServer
-````
-2. open kafka
+
+### 1. Run Zookeeper
+##### On MacOS
+```
+  cd /Users/{yourusername}/Documents/apache-zookeeper-3.7.0-bin/bin
+```
+```
+  zkServer start
+```
+### 2. Run Kafka
+##### On MacOS
+```
+  cd /Users/{yourusername}/Documents/kafka_2.12-2.8.0/bin
+```
+```
+  ./kafka-server-start.sh ../config/server.properties
+```
+##### On Windows
 ```
   .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
-3. create filmingmovie
+### 3. create filmingmovie
+##### On Windows
 ```
   ./kafka-topics.bat --create --topic filmingmovie --bootstrap-server localhost:9092
 ```
 ```
   ./kafka-topics.bat --list --bootstrap-server localhost:9092
 ```
-4. use filmingmovie
+##### On MacOS
+```
+  ./kafka-topics.sh --create --topic filmingmovie --bootstrap-server localhost:9092
+```
+```
+  ./kafka-topics.sh --list --bootstrap-server localhost:9092
+```
+### 4. use filmingmovie
+##### On Windows
 ```
   ./kafka-console-consumer.bat --topic filmingmovie --from-beginning --bootstrap-server localhost:9092
+```
+##### On MacOS
+```
+  ./kafka-console-consumer.sh --topic filmingmovie --from-beginning --bootstrap-server localhost:9092
 ```
 Inside The `Visual Studio Code`
 
@@ -86,7 +113,7 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 - Define a two method `findByTitle(String title)` and `findAll()` that that returns a Movie given its title and sort them all.
 
 # PubSub Model
-![Alt text](image.png)
+![Alt text](Pubsub.png)
 # List your group's member's below.
 1. 652110280 Nuddanai Klaiklin
 2. 652110318 Jeeraphat Chantra
