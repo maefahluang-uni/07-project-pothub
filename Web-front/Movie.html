@@ -7,7 +7,29 @@
 </head>
 <body>
     <h1>Movie List</h1>
+    <a href="AddMovie.html">Go to Add movie</a>
     <ul id="movie-list"></ul>
-    <script src="movie.js"></script>
+    <script>
+         function fetchPosts() {
+            $("#displayPost").html(""); // Clear previous movie names
+            // Make an AJAX request to fetch movie names
+            $.ajax({
+                url: 'http://localhost:8200/movies',
+                method: 'GET',  // Use GET for fetching data
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displayPost');
+                    movieList.empty(); // Clear previous movies
+                    response.forEach(function (movie) {
+                        var movieItem = $('<div><strong>' + movie.title + '</strong></div>');
+                        movieList.append(movieItem);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie names:', error);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
