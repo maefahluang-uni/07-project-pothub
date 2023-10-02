@@ -1,42 +1,28 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Check JSON Data</title>
+    <title>รายการหนัง</title>
 </head>
 <body>
     <div id="result"></div>
     <script>
-        // สร้าง XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
-
-        // กำหนด URL ที่ต้องการดึงข้อมูล
-        var url = "http://localhost:8200/movies";
-
-        // สร้าง function สำหรับการตรวจสอบข้อมูล JSON
-function checkJSONData() {
-    if (xhr.readyState === 4) { // เมื่อการร้องขอเสร็จสมบูรณ์
-        if (xhr.status === 200) { // ตรวจสอบสถานะการร้องขอ
-            try {
-                var jsonData = JSON.parse(xhr.responseText);
-                document.getElementById("result").textContent = "ข้อมูล JSON มาถูกต้อง";
-            } catch (e) {
-                document.getElementById("result").textContent = "ไม่พบข้อมูล JSON ที่ถูกต้อง";
-            }
-        } else if (xhr.status === 404) { // 404 หมายถึง URL ไม่ถูกต้อง
-            document.getElementById("result").textContent = "URL ไม่ถูกต้อง";
-        } else {
-            document.getElementById("result").textContent = "ไม่สามารถเชื่อมต่อ URL ได้ (รหัสสถานะ " + xhr.status + ")";
-        }
-    }
-}
-
-
-        // กำหนดการตรวจสอบข้อมูลเมื่อเกิดการเปลี่ยนแปลงในสถานะการร้องขอ
-        xhr.onreadystatechange = checkJSONData;
-
-        // ทำการเปิดการร้องขอ GET ไปยัง URL
-        xhr.open("GET", url, true);
-        xhr.send();
+        // ทำการดึงข้อมูลจาก API และแสดงรายการหนัง
+        fetch('http://localhost:8200/movies', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            const movieList = document.getElementById('movie-list');
+            data.forEach(movie => {
+                const listItem = document.createElement('li');
+                listItem.textContent = movie.title;
+                movieList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+        });
     </script>
 </body>
 </html>

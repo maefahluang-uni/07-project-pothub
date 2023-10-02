@@ -1,16 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ส่งชื่อหนัง</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Movie Name</title>
 </head>
 <body>
     <h1>ส่งชื่อหนัง</h1>
     
-    <form action="http://localhost:8200/movies" method="POST">
+    <form id="postForm" action="" method="POST">
         <label for="movieName">ชื่อหนัง:</label>
-        <input type="text" id="movieName" name="movieName" required>
+        <input type="text" id="title" name="title" required>
         <br>
         <input type="submit" value="ส่งข้อมูล">
     </form>
+    <div id="displayPost"></div>
+    <script>
+        function fetchPosts() {
+            $("#displayPost").html(""); // Clear previous movie names
+            // Make an AJAX request to fetch movie names
+            $.ajax({
+                url: '/movies', // Replace with your Spring Boot endpoint for fetching movies
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displayPost');
+                    movieList.empty(); // Clear previous movies
+                    response.forEach(function (movie) {
+                        var movieItem = $('<div><strong>' + movie.title + '</strong></div>');
+                        movieList.append(movieItem);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie names:', error);
+                }
+            });
+        }
+
+        $('#postForm').submit(function (e) {
+            e.preventDefault();
+            var movieName = $('#title').val();
+            // Make an AJAX request to submit the movie name
+            $.ajax({
+                url: '/movies', // Replace with your Spring Boot endpoint for creating movies
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ title: movieName }),
+                success: function (response) {
+                    console.log('Movie name submitted successfully:', response);
+                    fetchPosts(); // Fetch and refresh the movie list
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error submitting movie name:', error);
+                }
+            });
+        });
+
+        // Fetch and display movie names on page load
+        $(document).ready(function () {
+            fetchPosts();
+        });
+    </script>
 </body>
 </html>
