@@ -25,8 +25,8 @@ zkServer
 ```
 Inside The `Visual Studio Code`
 
-1.  Run `FilmingmovieMicroservicApplication` in folder filmingmovie-microservice
-2.  Run `EurekaMainpageServerApplication` in folder eureka-mainpage-server
+1.  Run `EurekaMainpageServerApplication` in folder eureka-mainpage-server
+2.  Run `FilmingmovieMicroservicApplication` in folder filmingmovie-microservice
 3.  Run `TransactionConsumerApplication` in folder  pubsub-filmingmovie
 
 
@@ -84,6 +84,9 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 ### MovieRepository
 - Extend `CrudRepository <movie,Long>`
 - Define a two method `findByTitle(String title)` and `findAll()` that that returns a Movie given its title and sort them all.
+
+# PubSub Model
+![Alt text](image.png)
 # List your group's member's below.
 1. 652110280 Nuddanai Klaiklin
 2. 652110318 Jeeraphat Chantra
