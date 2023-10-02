@@ -40,5 +40,25 @@
         <li><a href="#">Award</a></li>
     </ul>
     <a href="AddMovie.html">Add Movie</a>
+    <p id="data-container"></p>
 </body>
+<script>
+// ดึงข้อมูล JSON จาก URL
+// ดึงข้อมูล JSON จากไฟล์
+fetch('http://localhost:8200/movies')
+  .then(response => response.json())
+  .then(data => {
+    // แสดงข้อมูลบน HTML
+    const dataContainer = document.getElementById('data-container');
+    dataContainer.innerHTML = `
+      <p>Name: ${data.title}</p>
+    `;
+  })
+  .catch(error => {
+    console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+  });
+
+
+
+</script>
 </html>

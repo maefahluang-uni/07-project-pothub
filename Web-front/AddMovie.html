@@ -1,50 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Movie</title>
+    <title>ส่งชื่อหนัง</title>
 </head>
 <body>
-    <h1>Add Movie</h1>
-    <form id="dataForm">
+    <h1>ส่งชื่อหนัง</h1>
+    
+    <form action="http://localhost:8200/movies" method="POST">
         <label for="movieName">ชื่อหนัง:</label>
-        <input type="text" id="movieName" name="movieName" required><br><br>
-
-        <label for="releaseYear">ปีที่ออกฉาย:</label>
-        <input type="number" id="releaseYear" name="releaseYear" required><br><br>
-
-        <input type="submit" value="Submit">
+        <input type="text" id="movieName" name="movieName" required>
+        <br>
+        <input type="submit" value="ส่งข้อมูล">
     </form>
-
-    <script>
-        document.getElementById('dataForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
-
-            // รับข้อมูลจากฟอร์ม
-            const movieName = document.getElementById('movieName').value;
-            const releaseYear = document.getElementById('releaseYear').value;
-
-            // สร้าง JSON จากข้อมูล
-            const jsonData = JSON.stringify({ movieName, releaseYear });
-
-            // ส่ง JSON ไปยังพอร์ต 9200 โดยใช้ XMLHttpRequest
-            const xhr = new XMLHttpRequest();
-            const url = 'http://localhost:9200'; // เปลี่ยน URL ตามที่คุณต้องการ
-
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    alert('ส่งข้อมูล JSON สำเร็จ');
-                } else {
-                    alert('เกิดข้อผิดพลาดในการส่งข้อมูล JSON');
-                }
-            };
-
-            xhr.send(jsonData);
-        });
-    </script>
 </body>
 </html>
