@@ -114,6 +114,23 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 
 # PubSub Model
 ![Alt text](Pubsub.png)
+# Complete Web-front
+#### (a) Complete the front web application
+The front-web uses jetty as a webserver to simply host html pages. You have to complete HTML code in `concert.html` (located at `src/main/webapp/`) to display the concert information and add concert. Please follow `TODO` in the source code to complete the application. 
+- complete `createConcertForm` in `concert.html` to display the form to add concert. The form should have the following fields with proper type as shown in ():
+  - `title` (text)
+  - `date` (datetime-local)
+  - `performer's name` (text)
+  - `performer's image URL` (text)
+- complete `loadConcerts` method in `concert.html` to load all concerts from the rest service. The concerts should be loaded from `GET /concerts` and displayed in the div `concertList` that shows concert's information. You may simply use `<p>` tag to display the information.
+- complete the function that is triggered when `createConcertForm` is submitted to send the concert information to the rest service. The form should be sent to `POST /concerts` with proper JSON format. 
+
+#### (b) Run the project
+Please perform the following
+- run the rest service at `lab-concert-web-service` using run button in ConcertApplication.
+- run the front web application at `lab-concert-web-front` using maven with goal `jetty:run`.
+- open browser and go to `http://localhost:8081/concert.html` to see the result. try to add a new concert and see if is added to the list.
+
 # List your group's member's below.
 1. 652110280 Nuddanai Klaiklin
 2. 652110318 Jeeraphat Chantra
