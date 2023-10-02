@@ -1,26 +1,21 @@
 package com.microservice.filmingmoviemicroservic;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/movies") // Set the base path for this controller
 public class MovieController {
 
     @Autowired
     private MovieRepository movieRepository;
 
-    @GetMapping("/movies")
+    @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies() {
         // Retrieve all movies from the database
         List<Movie> movies = movieRepository.findAll();
@@ -29,7 +24,7 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
-    @PostMapping("/movies")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE) // Specify JSON consumption
     public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
         // Perform the logic to save the new movie to the database
         Movie savedMovie = movieRepository.save(movie);
@@ -38,7 +33,7 @@ public class MovieController {
         return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
     }
 
-    @PutMapping("/movies/{id}")
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE) // Specify JSON consumption
     public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie updatedMovie) {
         // Check if a movie with the given ID exists
         if (!movieRepository.existsById(id)) {
@@ -56,7 +51,7 @@ public class MovieController {
         return new ResponseEntity<>(savedMovie, HttpStatus.OK);
     }
 
-    @PatchMapping("/movies/{id}")
+    @PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE) // Specify JSON consumption
     public ResponseEntity<Movie> patchMovie(@PathVariable Long id, @RequestBody Movie updatedMovie) {
         // Check if a movie with the given ID exists
         if (!movieRepository.existsById(id)) {
@@ -80,7 +75,6 @@ public class MovieController {
             Movie savedMovie = movieRepository.save(existingMovie);
 
             // Return a ResponseEntity with the saved movie and a 200 OK status
-
             return new ResponseEntity<>(savedMovie, HttpStatus.OK);
         } else {
             // Handle the case when the existing movie is null (should not occur)
@@ -88,7 +82,7 @@ public class MovieController {
         }
     }
 
-    @DeleteMapping("/movies/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         // Check if a movie with the given ID exists
         if (!movieRepository.existsById(id)) {
@@ -103,7 +97,7 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/movies/{title}")
+    @GetMapping("/{title}")
     public ResponseEntity<List<Movie>> getMoviesByTitle(@PathVariable String title) {
         // Retrieve movies by title from the database
         List<Movie> movies = movieRepository.findByTitle(title);
@@ -111,5 +105,4 @@ public class MovieController {
         // Return the list of movies with a 200 OK status
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
-
 }
