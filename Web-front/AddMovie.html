@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Movie Name</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>ADD Movie</h1>
     
-    <form id="postForm" action="http://localhost:8200/movies" method="POST">
+    <form id="postForm" action="http://localhost:8200/movies" method="POST" enctype="application/json">
         <label for="movieName">Movie Title:</label>
         <input type="text" id="title" name="title" required>
         <br>
@@ -23,6 +24,7 @@
                 url: 'http://localhost:8200/movies',// Replace with your Spring Boot endpoint for fetching movies
                 method: 'GET',
                 dataType: 'json',
+                mode: 'no-cors',
                 success: function (response) {
                     var movieList = $('#displayPost');
                     movieList.empty(); // Clear previous movies
@@ -40,14 +42,13 @@
         $('#postForm').submit(function (e) {
             e.preventDefault();
             var movieName = $('#title').val();
-            // Create an object with the movie title
-            var movieData = { title: movieName };
-            // Make an AJAX request to submit the movie name with the correct Content-Type
+            var postData = JSON.stringify({ title: movieName });
+            // Make an AJAX request to submit the movie name
             $.ajax({
                 url: 'http://localhost:8200/movies', // Replace with your Spring Boot endpoint for creating movies
-                method: 'POST',
-                contentType: 'application/json', // Set the Content-Type to JSON
-                data: JSON.stringify(movieData), // Convert the data to JSON format
+                method: 'POST', // Set the content type to JSON
+                data: postData, // Convert data to JSON format
+                
                 success: function (response) {
                     console.log('Movie name submitted successfully:', response);
                     fetchPosts(); // Fetch and refresh the movie list
@@ -57,7 +58,6 @@
                 }
             });
         });
-
 
         // Fetch and display movie names on page load
         $(document).ready(function () {
