@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Movie Name</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>ADD Movie</h1>
+    
+    <form id="postForm">
+        <label for="title">Movie Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="director">Director:</label>
+        <input type="text" id="director" name="director" required>
+        <br>
+        <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" name="releaseYear" required>
+        <br>
+        <input type="submit" value="Post">
+        <a href="Movie.html">Back</a>
+    </form>
+    <div id="displayMovies"></div>
+    
+    <script>
+        function fetchMovies() {
+            $("#displayMovies").html(""); // Clear previous movie names
+            // Make an AJAX request to fetch movie names
+            $.ajax({
+                url: 'http://localhost:8200/directors',
+                method: 'GET',  // Use GET for fetching data
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displaydirectors');
+                    movieList.empty(); // Clear previous movies
+                    response.forEach(function (movie) {
+                        var movieItem = $('<div><strong>' + movie.title + '</strong> directed by ' + movie.director + ' (' + movie.releaseYear + ')</div>');
+                        movieList.append(movieItem);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie names:', error);
+                }
+            });
+        }
+
+        $('#postForm').submit(function (e) {
+            e.preventDefault();
+            var movieTitle = $('#title').val();
+            var movieDirector = $('#director').val();
+            var movieReleaseYear = $('#releaseYear').val();
+            var postData = JSON.stringify({ title: movieTitle, director: movieDirector, releaseYear: movieReleaseYear });
+            // Make an AJAX request to submit the movie data
+            $.ajax({
+                url: 'http://localhost:8200/directors', // Replace with your Spring Boot endpoint for creating movies
+                method: 'POST', // Use POST for submitting data
+                contentType: 'application/json',  // Set the content type to JSON
+                data: postData, // Convert data to JSON format
+                success: function (response) {
+                    console.log('Movie data submitted successfully:', response);
+                    fetchMovies(); // Fetch and refresh the movie list
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error submitting movie data:', error);
+                }
+            });
+        });
+
+        // Fetch and display movie names on page load
+        $(document).ready(function () {
+            fetchMovies();
+        });
+        
+    </script>
+</body>
+</html>
