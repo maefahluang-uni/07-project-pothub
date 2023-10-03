@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie List</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Submit Movie Name</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
 <body>
     <h1>Movie List</h1>
     <a href="AddMovie.html">Go to Add movie</a>
-    <ul id="movie-list"></ul>
+    <div id="displayPost"></div>
     <script>
-         function fetchPosts() {
+        function fetchPosts() {
             $("#displayPost").html(""); // Clear previous movie names
             // Make an AJAX request to fetch movie names
             $.ajax({
@@ -30,6 +31,30 @@
                 }
             });
         }
+
+        $('#postForm').submit(function (e) {
+            e.preventDefault();
+            var movieName = $('#title').val();
+            var postData = JSON.stringify({ title: movieName });
+            // Make an AJAX request to submit the movie name
+            $.ajax({
+                url: 'http://localhost:8200/movies', // Replace with your Spring Boot endpoint for creating movies
+                method: 'POST', // Use POST for submitting data
+                contentType: 'application/json',  // Set the content type to JSON
+                data: postData, // Convert data to JSON format
+                success: function (response) {
+                    console.log('Movie name submitted successfully:', response);
+                    fetchPosts(); // Fetch and refresh the movie list
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error submitting movie name:', error);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            fetchPosts();
+        });
     </script>
 </body>
 </html>
