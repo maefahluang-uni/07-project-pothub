@@ -5,23 +5,50 @@ Please use this template for your project.
 How to use 
 =============
 Get Start With Outside The `Visual studio Code`
-````
-zkServer
-````
-2. open kafka
+
+### 1. Run Zookeeper
+##### On MacOS
+```
+  cd /Users/{yourusername}/Documents/apache-zookeeper-3.7.0-bin/bin
+```
+```
+  zkServer start
+```
+### 2. Run Kafka
+##### On MacOS
+```
+  cd /Users/{yourusername}/Documents/kafka_2.12-2.8.0/bin
+```
+```
+  ./kafka-server-start.sh ../config/server.properties
+```
+##### On Windows
 ```
   .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
-3. create filmingmovie
+### 3. create filmingmovie
+##### On Windows
 ```
   ./kafka-topics.bat --create --topic filmingmovie --bootstrap-server localhost:9092
 ```
 ```
   ./kafka-topics.bat --list --bootstrap-server localhost:9092
 ```
-4. use filmingmovie
+##### On MacOS
+```
+  ./kafka-topics.sh --create --topic filmingmovie --bootstrap-server localhost:9092
+```
+```
+  ./kafka-topics.sh --list --bootstrap-server localhost:9092
+```
+### 4. use filmingmovie
+##### On Windows
 ```
   ./kafka-console-consumer.bat --topic filmingmovie --from-beginning --bootstrap-server localhost:9092
+```
+##### On MacOS
+```
+  ./kafka-console-consumer.sh --topic filmingmovie --from-beginning --bootstrap-server localhost:9092
 ```
 Inside The `Visual Studio Code`
 
@@ -37,7 +64,7 @@ In `filmingmovie-microservice`, the `Advertise` ,`Award` ,`Company` ,`Director` 
 - add @Id and @GeneratedValue to the attribute that will be used as primary key.
 - add relationship annotation to an attribute that link to the other class such as @ManyToOne with proper fetch and cascade so that when a post is fetched, user is also fetched if existed. When a post is saved, its author is also saved. Many posts can be created by a user.
 
-# Complete the rest Service
+# Complete 4 Rest Service
 In `filmingmovie-microservice`, the service is to provide a basic REST interface as follows:
 ### AdvertiseController
 - `POST /advertises`. Creates a `Concert`. The body of the HTTP request message contains a representation of the new concert (other than the unique ID) to create. The service generates the concert's ID via the database, and returns a HTTP response of 201 (created).
@@ -86,7 +113,24 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 - Define a two method `findByTitle(String title)` and `findAll()` that that returns a Movie given its title and sort them all.
 
 # PubSub Model
-![Alt text](image.png)
+![Alt text](Pubsub.png)
+# Complete Web-front
+#### (a) Complete the front web application
+The front-web uses jetty as a webserver to simply host html pages. You have to complete HTML code in `concert.html` (located at `src/main/webapp/`) to display the concert information and add concert. Please follow `TODO` in the source code to complete the application. 
+- complete `createConcertForm` in `concert.html` to display the form to add concert. The form should have the following fields with proper type as shown in ():
+  - `title` (text)
+  - `date` (datetime-local)
+  - `performer's name` (text)
+  - `performer's image URL` (text)
+- complete `loadConcerts` method in `concert.html` to load all concerts from the rest service. The concerts should be loaded from `GET /concerts` and displayed in the div `concertList` that shows concert's information. You may simply use `<p>` tag to display the information.
+- complete the function that is triggered when `createConcertForm` is submitted to send the concert information to the rest service. The form should be sent to `POST /concerts` with proper JSON format. 
+
+#### (b) Run the project
+Please perform the following
+- run the rest service at `lab-concert-web-service` using run button in ConcertApplication.
+- run the front web application at `lab-concert-web-front` using maven with goal `jetty:run`.
+- open browser and go to `http://localhost:8081/concert.html` to see the result. try to add a new concert and see if is added to the list.
+
 # List your group's member's below.
 1. 652110280 Nuddanai Klaiklin
 2. 652110318 Jeeraphat Chantra
