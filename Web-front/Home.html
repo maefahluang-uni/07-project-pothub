@@ -4,30 +4,44 @@
     <link rel="stylesheet" href="Main.css">
     <link rel="stylesheet" type="text/css" href="Navbar.css">
     <style>
-        .welcome-text {
-    text-align: center;
-    margin-top: 30px; /* เปลี่ยนระยะห่างด้านบนของข้อความ */
-    font-size: 36px;
-    color: #ffffff;
-    padding-bottom: 10px; /* เพิ่มระยะห่างด้านล่างของข้อความ */
+            .welcome-text {
+                text-align: center;
+                margin-top: 30px; /* เปลี่ยนระยะห่างด้านบนของข้อความ */
+                font-size: 36px;
+                color: #ffffff;
+                padding-bottom: 10px; /* เพิ่มระยะห่างด้านล่างของข้อความ */
+                position: relative;
 
-}
-body{
-    background-color: black;
-}
+                }
+            body{
+                    background-color: black;
+                }
+                .button-goto {
+                    background-color: white;
+                    width: max-content;
+                    position: absolute;
+                    border: 2px solid orange;
+                    margin-top: 30px;
+                    left: 45%;
+                }
+                a{
+                    color: orange;
+                    text-decoration: none;
+                }
+                a::after{
+                    color: black;
+                }
     </style>
 </head>
 <body>
-    <ul class="navbar">
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="Movie.html">Movie</a></li>
-        <li><a href="Director.html">Director</a></li>
-        <li><a href="#">Award</a></li>
-    </ul>
     <div class="welcome-text">
         <h1>Welcome </h1>
         <h1>To</h1>
         <h1 style="color: orange;">PotHub</h1>
+        <div class="button-goto">
+            <a href="Movie.html">Go to website</a> 
+        </div>
+      
     </div>
 </body>
 </html>
