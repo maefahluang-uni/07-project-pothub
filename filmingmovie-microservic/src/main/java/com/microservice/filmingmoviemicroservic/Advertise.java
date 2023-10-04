@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 public class Advertise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long advertise_id;
+    private Long id;
     private String adsName;
 
     // One-to-One relationship with Movie
@@ -38,16 +38,16 @@ public class Advertise {
     }
 
     public Advertise(Long advertise_id, String adsName) {
-        this.advertise_id = advertise_id;
+        this.id = advertise_id;
         this.adsName = adsName;
     }
 
     public Long getAdvertise_id() {
-        return advertise_id;
+        return id;
     }
 
     public void setAdvertise_id(Long advertise_id) {
-        this.advertise_id = advertise_id;
+        this.id = advertise_id;
     }
 
     public String getAdsName() {
