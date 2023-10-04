@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Movie Name</title>
+    <title>Add Movie</title>
     <link rel="stylesheet" href="Main.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -16,7 +16,7 @@
 
         h1 {
             text-align: center;
-            color: #333;
+            color: orange;
         }
 
         form {
@@ -29,20 +29,19 @@
         }
 
         label {
-            display: block;
             font-weight: bold;
             margin-bottom: 5px;
+            display: block;
         }
 
-        input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box; /* Add this line */
-}
-
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
 
         input[type="submit"] {
             background-color: #000000;
@@ -83,27 +82,25 @@
     </style>
 </head>
 <body>
-    <h1 style="color: orange;">ADD Movie</h1>
-
+    <h1>Add Movie</h1>
     
     <form id="postForm" method="POST">
-        <label for="movieName">Movie Title:</label>
+        <label for="title">Movie Title:</label>
         <input type="text" id="title" name="title" required>
-        <label for="movieName">Year:</label>
-        <input type="text" id="title" name="title" required>
-        <label for="movieName">Movie Title:</label>
-        <input type="text" id="title" name="title" required>
-        <br>
+        <label for="year">Year:</label>
+        <input type="date" id="year" name="year" required>
+        <br><br>
         <input type="submit" value="Post">
         <a href="Movie.html">Back</a>
     </form>
+
     <script>
         function fetchPosts() {
             $("#displayPost").html(""); // Clear previous movie names
             // Make an AJAX request to fetch movie names
             $.ajax({
                 url: 'http://localhost:8200/movies',
-                method: 'GET',  // Use GET for fetching data
+                method: 'GET',
                 dataType: 'json',
                 success: function (response) {
                     var movieList = $('#displayPost');
@@ -121,12 +118,25 @@
 
         $('#postForm').submit(function (e) {
             e.preventDefault();
+            const url = 'https://dog.ceo/api/breeds/image/random';
+            fetch(url)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function(data){
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log("Errror fecting"+ error)
+            })
+
             var movieName = $('#title').val();
-            var postData = JSON.stringify({ title: movieName });
+            var movieYear = $('#year').val();
+            var postData = JSON.stringify({ title: movieName, year: movieYear });
             // Make an AJAX request to submit the movie name
             $.ajax({
                 url: 'http://localhost:8200/movies', // Replace with your Spring Boot endpoint for creating movies
-                method: 'POST', // Use POST for submitting data
+                method: 'POST',
                 contentType: 'application/json',  // Set the content type to JSON
                 data: postData, // Convert data to JSON format
                 success: function (response) {
@@ -143,12 +153,13 @@
         $(document).ready(function () {
             fetchPosts();
         });
+
         document.getElementById("postForm").addEventListener("submit", function(event) {
-            // ป้องกันการส่งแบบฟอร์มแบบปกติ
+            // Prevent the form from submitting normally
             event.preventDefault();
 
-            // เปลี่ยนหน้าไปยัง "movie.html"
-            window.location.href = "movie.html";
+            // Redirect to "Movie.html" after form submission
+            window.location.href = "Movie.html";
         });
     </script>
 </body>

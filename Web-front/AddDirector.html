@@ -14,9 +14,9 @@
         <label for="firstname">Firstname:</label>
         <input type="text" id="firstname" name="firstname" required>
         <label for="lastname">lastname:</label>
-        <input type="text" id="firstname" name="firstname" required>
+        <input type="text" id="lastname" name="lastname" required>
         <label for="birthday">Birthday:</label>
-        <input type="date" id="firstname" name="firstname" required>
+        <input type="date" id="birthday" name="birthday" required>
         <input type="submit" value="Post">
         <a href="Movie.html">Back</a>
     </form>
@@ -57,7 +57,7 @@
                     fetchPosts(); // Fetch and refresh the movie list
                 },
                 error: function (xhr, status, error) {
-                    console.log('Error submitting movie name:', error);
+                    console.log('Error submitting directors name:', error);
                 }
             });
         });
