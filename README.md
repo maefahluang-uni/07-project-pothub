@@ -116,17 +116,18 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 ![Alt text](Pubsub.png)
 # Complete Web-front
 ### Movie.html
+  - Show result
+### AddMovie.html
   - `title` (text)
-  - `date` (datetime-local)
-  - `performer's name` (text)
-  - `performer's image URL` (text)
-- complete `loadConcerts` method in `concert.html` to load all concerts from the rest service. The concerts should be loaded from `GET /concerts` and displayed in the div `concertList` that shows concert's information. You may simply use `<p>` tag to display the information.
-- complete the function that is triggered when `createConcertForm` is submitted to send the concert information to the rest service. The form should be sent to `POST /concerts` with proper JSON format. 
-
+  - `year` (datetime-local)
+### AddDirector.html
+  - `firstname` (text)
+  - `lastname`  (text)
+  - `birthday`  (date)
 # List your group's member's below.
-1. 652110280 Nuddanai Klaiklin
-2. 652110318 Jeeraphat Chantra
-3. 652110299 Methinee Phormsorn
+1. `652110280` Nuddanai Klaiklin
+2. `652110318` Jeeraphat Chantra
+3. `652110299` Methinee Phormsorn
 
 
 
