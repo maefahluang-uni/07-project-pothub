@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Director {
     @Id
@@ -18,6 +20,7 @@ public class Director {
     private Long movid_id;
     private String firstname;
     private String lastname;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
 
     // One-to-Many relationship with Advertise
