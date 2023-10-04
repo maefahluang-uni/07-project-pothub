@@ -2,11 +2,10 @@
 <html>
 <head>
     <link rel="stylesheet" href="Main.css">
-    <link rel="stylesheet" type="text/css" href="Navbar.css">
     <style>
             .welcome-text {
                 text-align: center;
-                margin-top: 30px; /* เปลี่ยนระยะห่างด้านบนของข้อความ */
+                margin-top: 150px; /* เปลี่ยนระยะห่างด้านบนของข้อความ */
                 font-size: 36px;
                 color: #ffffff;
                 padding-bottom: 10px; /* เพิ่มระยะห่างด้านล่างของข้อความ */
@@ -15,6 +14,7 @@
                 }
             body{
                     background-color: black;
+                    
                 }
                 .button-goto {
                     background-color: white;
@@ -31,6 +31,26 @@
                 a::after{
                     color: black;
                 }
+                .button-goto {
+        background-color: orange;
+        width: max-content;
+        position: absolute;
+        border: 2px solid orange;
+        margin-top: 30px;
+        left: 50%; /* Center the button horizontally */
+        transform: translateX(-50%); /* Adjust horizontally centered position */
+        padding: 10px 20px; /* Add padding for better button appearance */
+        border-radius: 5px; /* Add rounded corners */
+    }
+
+    .button-goto a {
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+    }
+
+    .button-goto a::after {
+        color: black;
+    }
     </style>
 </head>
 <body>
