@@ -34,7 +34,8 @@
             display: block;
         }
 
-        input[type="text"], input[type="date"] {
+        input[type="text"],
+        input[type="date"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -83,16 +84,17 @@
 </head>
 <body>
     <h1>Add Movie</h1>
-    
+
     <form id="postForm" method="POST">
         <label for="title">Movie Title:</label>
         <input type="text" id="title" name="title" required>
         <label for="year">Year:</label>
         <input type="date" id="year" name="year" required>
         <br><br>
-        <input type="submit" value="Post">
+        <input type="submit" value="Post" onclick="fetchRandomDogImage()">
         <a href="Movie.html">Back</a>
     </form>
+    <div id="randomDogImage"></div>
 
     <script>
         function fetchPosts() {
@@ -118,18 +120,6 @@
 
         $('#postForm').submit(function (e) {
             e.preventDefault();
-            const url = 'https://dog.ceo/api/breeds/image/random';
-            fetch(url)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function(data){
-                console.log(data);
-            })
-            .catch(function (error) {
-                console.log("Errror fecting"+ error)
-            })
-
             var movieName = $('#title').val();
             var movieYear = $('#year').val();
             var postData = JSON.stringify({ title: movieName, year: movieYear });
@@ -161,6 +151,27 @@
             // Redirect to "Movie.html" after form submission
             window.location.href = "Movie.html";
         });
+
+        // Add a click event listener to the fetch button
+        $('#fetchDogButton').click(function () {
+            fetchRandomDogImage();
+        });
+
+        function fetchRandomDogImage() {
+            fetch('https://random.dog/woof.json')
+                .then(res => res.json())
+                .then(data => {
+                    // Display the random dog image in the 'randomDogImage' div
+                    if (data.url.endsWith(".mp4")) {
+                        $('#randomDogImage').html('<video autoplay loop muted><source src="' + data.url + '" type="video/mp4"></video>');
+                    } else {
+                        $('#randomDogImage').html('<img src="' + data.url + '" alt="Random Dog">');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching random dog image:', error);
+                });
+        }
     </script>
 </body>
 </html>

@@ -7,150 +7,126 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="Main.css">
     <style>
-        /* Style for the Movie List page */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #050505;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #050505;
+            margin: 0;
+            padding: 0;
+        }
 
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #fbbd1f;
-}
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #fbbd1f;
+        }
 
-a {
-    display: block;
-    text-align: center;
-    margin: 20px auto;
-    text-decoration: none;
-    color: #007bff;
-}
+        a {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none;
+            color: #007bff;
+        }
 
-a:hover {
-    text-decoration: underline;
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
-#displayPost {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #fff;
-}
+        #displayPost {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
 
-.movie-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
+        .movie-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
 
-.movie-title {
-    font-size: 18px;
-    margin: 0;
-}
+        .movie-title {
+            font-size: 18px;
+            margin: 0;
+        }
 
-.movie-year {
-    font-size: 14px;
-    color: #888;
-    margin: 5px 0;
-}
+        .movie-year {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0;
+        }
 
-.movie-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-#addmov {
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 50px;
-}
+        .movie-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
 
-#addmov a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #fbbd1f;
-    color: #000000;
-    text-decoration: none;
-    border-radius: 5px;
-}
+        #addmov {
+            text-align: right;
+            margin-top: 20px;
+            margin-right: 50px;
+        }
 
-#addmov a:hover {
-    background-color: #0056b3;
-}
+        #addmov a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fbbd1f;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #addmov a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Movie List</h1>
     <div id="addmov">
-    <a href="AddMovie.html">Go to Add Movie</a>
-</div>
+        <a href="AddMovie.html">Go to Add Movie</a>
+    </div>
     <div id="displayPost">
         <!-- Movie cards will be dynamically added here -->
     </div>
-    
+    <div id="randomDogImage">
+        <!-- Random dog image will be displayed here -->
+    </div>
     <script>
-       function fetchPosts() {
-    $("#displayPost").html(""); // Clear previous movie cards
-    // Make an AJAX request to fetch movie data
-    $.ajax({
-        url: 'http://localhost:8200/movies',
-        method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            var movieList = $('#displayPost');
-            response.forEach(function (movie) {
-                // Create a movie card for each movie
-                var movieCard = $('<div class="movie-card">' +
-                    '<h2 class="movie-title">' + movie.title + '</h2>' +
-                    '<p class="movie-year">Year: ' + movie.year + '</p>' +
-                    '<img class="movie-image" src="' + movie.image + '" alt="Movie Image">' +
-                    '<button class="delete-button" data-movie-id="' + movie.id + '">Delete</button>' +
-                    '</div>');
-
-                // Attach an event listener to the "Delete" button
-                movieCard.find('.delete-button').click(function () {
-                    var movieId = $(this).data('movie-id');
-                    deleteMovie(movie.movid_id);
-                });
-
-                movieList.append(movieCard);
+        function fetchPosts() {
+            $("#displayPost").html(""); // Clear previous movie cards
+            // Make an AJAX request to fetch movie data
+            $.ajax({
+                url: 'http://localhost:8200/movies',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displayPost');
+                    response.forEach(function (movie) {
+                        // Create a movie card for each movie
+                        var movieCard = $('<div class="movie-card">' +
+                            '<h2 class="movie-title">' + movie.title + '</h2>' +
+                            '<p class="movie-year">Year: ' + movie.year + '</p>' +
+                            '<img class="movie-image" src="' + movie.image + '" alt="Movie Image">' +
+                            '</div>');
+                        movieList.append(movieCard);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie data:', error);
+                }
             });
-        },
-        error: function (xhr, status, error) {
-            console.log('Error fetching movie data:', error);
         }
-    });
-}
-
-function deleteMovie(movieId) {
-    $.ajax({
-        url: 'http://localhost:8200/movies/' + movieId, // Make sure movieId is not undefined here
-        method: 'DELETE',
-        success: function (response) {
-            // Movie deleted successfully, you can perform any necessary UI updates here
-            console.log('Movie deleted successfully.');
-            fetchPosts();
-            // If you want to remove the movie card from the UI, you can do so here
-            // For example:
-            // $('#movie-card-' + movieId).remove();
-        },
-        error: function (xhr, status, error) {
-            console.log('Error deleting movie:', error);
-        }
-    });
-}
-
-
 
         $(document).ready(function () {
-            fetchPosts(); // Fetch and display movie data on page load
+            // Fetch and display other movie names on page load
+            fetchPosts();
         });
     </script>
+    
 </body>
 </html>

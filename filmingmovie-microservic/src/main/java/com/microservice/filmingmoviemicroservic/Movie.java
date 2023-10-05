@@ -12,12 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long movid_id;
     private String title;
+   
     private Date year;
 
     // One-to-Many relationship with Award
