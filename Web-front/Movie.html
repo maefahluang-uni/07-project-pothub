@@ -52,12 +52,12 @@ a:hover {
     border: 2px solid #9a7ee5;
     background-color: #fff;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    
     width: 300px;
     margin: 20px;
     padding-top: 10px;
-    max-height: 400px;
+    max-height: 350px;
     text-align: center;
+    position: relative;
     overflow: hidden; /* Add this to hide overflowing images */
 }
 
@@ -72,19 +72,36 @@ a:hover {
     color: #666;
     margin-bottom: 20px;
 }
-
-.movie-image {
-    width: max-content;
-    object-fit: cover;
-   
-}
 .movie-image img{
     width: 300px;
     height: auto;
+    object-fit: contain;
 }
 .movie-image video{
     width: 300px;
-   min-height: 400px;
+   min-height: 350px;
+}
+.movie-buttons {
+    position: absolute;
+    
+    bottom: 20px; /* Adjust the top position as needed */
+    right: 20px; /* Adjust the right position as needed */
+}
+
+/* Style for each button */
+.movie-buttons button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Style for the "Delete" button */
+.movie-buttons .delete-movie {
+    background-color: #f44336; /* Change the color for the delete button */
 }
 
 #addmov {
@@ -150,6 +167,10 @@ a:hover {
                             '<h2 class="movie-title">' + movie.title + '</h2>' +
                             '<p class="movie-year">Year: ' + movie.year + '</p>' +
                             '<div class="movie-image"></div>' + // Create a div for the movie image
+                            '<div class="movie-buttons">'+
+                                '<button class="update-movie">Update</button>'+
+                                '<button class="delete-movie">Delete</button>'+
+                            '</div>'+
                             '</div>');
                         movieList.append(movieCard);
     
