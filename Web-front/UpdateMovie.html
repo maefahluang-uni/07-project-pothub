@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="Main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: orange;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffc72d;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ffffff;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #080808;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        #displayPost {
+            margin-top: 20px;
+        }
+
+        #displayPost div {
+            padding: 10px;
+            background-color: #ffb92c;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Movie</h1>
+
+    <form id="postForm" method="POST">
+        <label for="title">Movie Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="year">Year:</label>
+        <input type="date" id="year" name="year" required>
+        <br><br>
+        <input type="submit" value="Post">
+        <a href="Movie.html">Back</a>
+    </form>
+    <div id="randomDogImage"></div>
+
+    
+<script>
+    function getQueryParameter(parameterName) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(parameterName);
+}
+const Id = getQueryParameter('movieId');
+
+
+$('#updateForm').submit(function (e) {
+    e.preventDefault();
+    var updatedTitle = $('#updateTitle').val();
+    var updatedYear = $('#updateYear').val();
+
+    // Get the movieId from the hidden input field
+    
+    
+
+    // Make an AJAX request to update the movie information
+    $.ajax({
+        url: 'http://localhost:8200/movies/' + Id,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ title: updatedTitle, year: updatedYear }),
+        success: function (response) {
+            console.log('Movie information updated successfully:', response);
+            // Redirect to the movie list page after the update
+            window.location.href = 'Movie.html';
+        },
+        error: function (xhr, status, error) {
+            console.log('Error updating movie information:', error);
+        }
+    });
+});
+</script>
+
+
+    
+</body>
+</html>
