@@ -6,95 +6,96 @@
     <title>Movie List</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="Main.css">
-    <link rel="stylesheet" type="text/css" href="Navbar.css">
     <style>
-        /* Style for the Movie List page */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #050505;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #050505;
+            margin: 0;
+            padding: 0;
+        }
 
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #fbbd1f;
-}
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #fbbd1f;
+        }
 
-a {
-    display: block;
-    text-align: center;
-    margin: 20px auto;
-    text-decoration: none;
-    color: #007bff;
-}
+        a {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none;
+            color: #007bff;
+        }
 
-a:hover {
-    text-decoration: underline;
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
-#displayPost {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #fff;
-}
+        #displayPost {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
 
-.movie-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
+        .movie-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
 
-.movie-title {
-    font-size: 18px;
-    margin: 0;
-}
+        .movie-title {
+            font-size: 18px;
+            margin: 0;
+        }
 
-.movie-year {
-    font-size: 14px;
-    color: #888;
-    margin: 5px 0;
-}
+        .movie-year {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0;
+        }
 
-.movie-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-#addmov {
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 50px;
-}
+        .movie-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
 
-#addmov a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #fbbd1f;
-    color: #000000;
-    text-decoration: none;
-    border-radius: 5px;
-}
+        #addmov {
+            text-align: right;
+            margin-top: 20px;
+            margin-right: 50px;
+        }
 
-#addmov a:hover {
-    background-color: #0056b3;
-}
+        #addmov a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fbbd1f;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #addmov a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Movie List</h1>
     <div id="addmov">
-    <a href="AddMovie.html">Go to Add Movie</a>
-</div>
+        <a href="AddMovie.html">Go to Add Movie</a>
+    </div>
     <div id="displayPost">
         <!-- Movie cards will be dynamically added here -->
     </div>
-    
+    <div id="randomDogImage">
+        <!-- Random dog image will be displayed here -->
+    </div>
     <script>
         function fetchPosts() {
             $("#displayPost").html(""); // Clear previous movie cards
@@ -110,9 +111,11 @@ a:hover {
                         var movieCard = $('<div class="movie-card">' +
                             '<h2 class="movie-title">' + movie.title + '</h2>' +
                             '<p class="movie-year">Year: ' + movie.year + '</p>' +
-                            '<img class="movie-image" src="' + movie.image + '" alt="Movie Image">' +
                             '</div>');
                         movieList.append(movieCard);
+    
+                        // Fetch and display a random dog image within the movie card
+                        fetchRandomDogImage(movieCard);
                     });
                 },
                 error: function (xhr, status, error) {
@@ -120,10 +123,33 @@ a:hover {
                 }
             });
         }
-
+    
+        // Fetch a random dog image and display it within the given movie card
+        function fetchRandomDogImage(movieCard) {
+            fetch('https://random.dog/woof.json')
+                .then(res => res.json())
+                .then(data => {
+                    // Check if the fetched URL is an image or video
+                    if (data.url.endsWith(".mp4")) {
+                        var randomDogMedia = '<video autoplay loop muted><source src="' + data.url + '" type="video/mp4"></video>';
+                    } else {
+                        var randomDogMedia = '<img src="' + data.url + '" alt="Random Dog">';
+                    }
+    
+                    // Append the random dog media to the movie card
+                    movieCard.append(randomDogMedia);
+                    console.log(randomDogMedia)
+                })
+                .catch(error => {
+                    console.error('Error fetching random dog image:', error);
+                });
+        }
+    
         $(document).ready(function () {
-            fetchPosts(); // Fetch and display movie data on page load
+            // Fetch and display other movie names on page load
+            fetchPosts();
         });
     </script>
+    
 </body>
 </html>
