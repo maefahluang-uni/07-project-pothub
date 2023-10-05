@@ -83,56 +83,55 @@
     </style>
 </head>
 <body>
-    <h1>Add Movie</h1>
+    <h1>Update Movie</h1>
 
-    <form id="postForm" method="POST">
-        <label for="title">Movie Title:</label>
-        <input type="text" id="title" name="title" required>
-        <label for="year">Year:</label>
-        <input type="date" id="year" name="year" required>
+    <form id="updateForm" method="post">
+        <input type="hidden" id="movieId" name="movieId" value="">
+        <label for="updateTitle">Movie Title:</label>
+        <input type="text" id="updateTitle" name="updateTitle" required>
+        <label for="updateYear">Year:</label>
+        <input type="date" id="updateYear" name="updateYear" required>
         <br><br>
-        <input type="submit" value="Post">
+        <input type="submit" value="Update">
         <a href="Movie.html">Back</a>
     </form>
     <div id="randomDogImage"></div>
 
-    
-<script>
-    function getQueryParameter(parameterName) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(parameterName);
-}
-const Id = getQueryParameter('movieId');
-
-
-$('#updateForm').submit(function (e) {
-    e.preventDefault();
-    var updatedTitle = $('#updateTitle').val();
-    var updatedYear = $('#updateYear').val();
-
-    // Get the movieId from the hidden input field
-    
-    
-
-    // Make an AJAX request to update the movie information
-    $.ajax({
-        url: 'http://localhost:8200/movies/' + Id,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify({ title: updatedTitle, year: updatedYear }),
-        success: function (response) {
-            console.log('Movie information updated successfully:', response);
-            // Redirect to the movie list page after the update
-            window.location.href = 'Movie.html';
-        },
-        error: function (xhr, status, error) {
-            console.log('Error updating movie information:', error);
+    <script>
+        // Function to extract query parameters from the URL
+        function getQueryParameter(parameterName) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameterName);
         }
-    });
-});
-</script>
 
+        // Get the movie ID from the query parameters
+        const movieId = getQueryParameter('movieId');
 
-    
+        // Set the movie ID in the hidden input field
+        $('#movieId').val(movieId);
+
+        // Handle form submission
+        $('#updateForm').submit(function (e) {
+            e.preventDefault();
+            var updatedTitle = $('#updateTitle').val();
+            var updatedYear = $('#updateYear').val();
+
+            // Make an AJAX request to update the movie information
+            $.ajax({
+                url: 'http://localhost:8200/movies/' + movieId,
+                method: 'PATCH',
+                contentType: 'application/json',
+                data: JSON.stringify({ title: updatedTitle, year: updatedYear }),
+                success: function (response) {
+                    console.log('Movie information updated successfully:', response);
+                    // Redirect to the movie list page after the update
+                    window.location.href = 'Movie.html';
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error updating movie information:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
