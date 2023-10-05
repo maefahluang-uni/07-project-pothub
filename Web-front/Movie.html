@@ -83,6 +83,22 @@ a:hover {
 #addmov a:hover {
     background-color: #0056b3;
 }
+#ad-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 500px;
+            height: 60px;
+            background-color: #fbbd1f;
+            color: #000;
+            text-align: center;
+            padding: 10px 0;
+            margin-left: 500px;
+        }
+
+        #ad-bar p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -93,7 +109,9 @@ a:hover {
     <div id="displayPost">
         <!-- Movie cards will be dynamically added here -->
     </div>
-    
+    <div id="ad-bar">
+        <p>รอลงโฆณา</p>
+    </div>
     <script>
        function fetchPosts() {
     $("#displayPost").html(""); // Clear previous movie cards
