@@ -33,21 +33,21 @@ a:hover {
     text-decoration: underline;
 }
 
-#displayPost {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #fff;
-}
+        #displayPost {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
 
-.movie-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
+        .movie-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
 
 .movie-title {
     font-size: 18px;
@@ -60,16 +60,17 @@ a:hover {
     margin: 5px 0;
 }
 
-.movie-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-#addmov {
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 50px;
-}
+        .movie-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        #addmov {
+            text-align: right;
+            margin-top: 20px;
+            margin-right: 50px;
+        }
 
 #addmov a {
     display: inline-block;
@@ -113,64 +114,54 @@ a:hover {
         <p>รอลงโฆณา</p>
     </div>
     <script>
-       function fetchPosts() {
-    $("#displayPost").html(""); // Clear previous movie cards
-    // Make an AJAX request to fetch movie data
-    $.ajax({
-        url: 'http://localhost:8200/movies',
-        method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            var movieList = $('#displayPost');
-            response.forEach(function (movie) {
-                // Create a movie card for each movie
-                var movieCard = $('<div class="movie-card">' +
-                    '<h2 class="movie-title">' + movie.title + '</h2>' +
-                    '<p class="movie-year">Year: ' + movie.year + '</p>' +
-                    '<img class="movie-image" src="' + movie.image + '" alt="Movie Image">' +
-                    '<button class="update-button" data-movie-id="' + movie.id + '">Update</button>' +
-                    '<button class="delete-button" data-movie-id="' + movie.id + '">Delete</button>' +
-                    '</div>');
-
-                // Attach an event listener to the "Delete" button
-                movieCard.find('.delete-button').click(function () {
-                    deleteMovie(movie.movid_id);
-                });
-                // Attach an event listener to the "Update" button
-        movieCard.find('.update-button').click(function () {
-    var movieId = $(this).data('movie-id'); // ดึงค่า ID ของหนังจาก data attribute
-    window.location.href = 'UpdateMovie.html?movieId=' + movie.movid_id; // ไปยังหน้า "update.html" พร้อมส่งค่า movieId ผ่าน query parameter
-});
-
-                movieList.append(movieCard);
+        function fetchPosts() {
+            $("#displayPost").html(""); // Clear previous movie cards
+            // Make an AJAX request to fetch movie data
+            $.ajax({
+                url: 'http://localhost:8200/movies',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var movieList = $('#displayPost');
+                    response.forEach(function (movie) {
+                        // Create a movie card for each movie
+                        var movieCard = $('<div class="movie-card">' +
+                            '<h2 class="movie-title">' + movie.title + '</h2>' +
+                            '<p class="movie-year">Year: ' + movie.year + '</p>' +
+                            '</div>');
+                        movieList.append(movieCard);
+    
+                        // Fetch and display a random dog image within the movie card
+                        fetchRandomDogImage(movieCard);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching movie data:', error);
+                }
             });
-        },
-        error: function (xhr, status, error) {
-            console.log('Error fetching movie data:', error);
         }
-    });
-}
-
-function deleteMovie(movieId) {
-    $.ajax({
-        url: 'http://localhost:8200/movies/' + movieId, // Make sure movieId is not undefined here
-        method: 'DELETE',
-        success: function (response) {
-            // Movie deleted successfully, you can perform any necessary UI updates here
-            console.log('Movie deleted successfully.');
-            fetchPosts();
-            // If you want to remove the movie card from the UI, you can do so here
-            // For example:
-            // $('#movie-card-' + movieId).remove();
-        },
-        error: function (xhr, status, error) {
-            console.log('Error deleting movie:', error);
+    
+        // Fetch a random dog image and display it within the given movie card
+        function fetchRandomDogImage(movieCard) {
+            fetch('https://random.dog/woof.json')
+                .then(res => res.json())
+                .then(data => {
+                    // Check if the fetched URL is an image or video
+                    if (data.url.endsWith(".mp4")) {
+                        var randomDogMedia = '<video autoplay loop muted><source src="' + data.url + '" type="video/mp4"></video>';
+                    } else {
+                        var randomDogMedia = '<img src="' + data.url + '" alt="Random Dog">';
+                    }
+    
+                    // Append the random dog media to the movie card
+                    movieCard.append(randomDogMedia);
+                    console.log(randomDogMedia)
+                })
+                .catch(error => {
+                    console.error('Error fetching random dog image:', error);
+                });
         }
-    });
-}
-
-
-
+    
         $(document).ready(function () {
             fetchPosts(); // Fetch and display movie data on page load
         });
