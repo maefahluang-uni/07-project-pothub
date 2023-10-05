@@ -7,18 +7,25 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="Main.css">
     <style>
-        /* Style for the Movie List page */
+/* Style for the Movie List page */
 body {
     font-family: Arial, sans-serif;
-    background-color: #050505;
+    background-color: #000;
     margin: 0;
     padding: 0;
 }
 
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 h1 {
     text-align: center;
-    margin-top: 20px;
-    color: #fbbd1f;
+    margin-bottom: 20px;
+    color: #333;
+    background-color: orange;
 }
 
 a {
@@ -27,56 +34,69 @@ a {
     margin: 20px auto;
     text-decoration: none;
     color: #007bff;
+    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-        #displayPost {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            background-color: #fff;
-        }
+#displayPost {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 
-        .movie-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-        }
+.movie-card {
+    border: 2px solid #9a7ee5;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    
+    width: 300px;
+    margin: 20px;
+    padding-top: 10px;
+    max-height: 400px;
+    text-align: center;
+    overflow: hidden; /* Add this to hide overflowing images */
+}
 
 .movie-title {
     font-size: 18px;
-    margin: 0;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .movie-year {
     font-size: 14px;
-    color: #888;
-    margin: 5px 0;
+    color: #666;
+    margin-bottom: 20px;
 }
 
-        .movie-image {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-        }
+.movie-image {
+    width: max-content;
+    object-fit: cover;
+   
+}
+.movie-image img{
+    width: 300px;
+    height: auto;
+}
+.movie-image video{
+    width: 300px;
+   min-height: 400px;
+}
 
-        #addmov {
-            text-align: right;
-            margin-top: 20px;
-            margin-right: 50px;
-        }
+#addmov {
+    text-align: right;
+    margin-top: 20px;
+}
 
 #addmov a {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #fbbd1f;
-    color: #000000;
+    background-color: #007bff;
+    color: #fff;
     text-decoration: none;
     border-radius: 5px;
 }
@@ -84,22 +104,23 @@ a:hover {
 #addmov a:hover {
     background-color: #0056b3;
 }
-#ad-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 500px;
-            height: 60px;
-            background-color: #fbbd1f;
-            color: #000;
-            text-align: center;
-            padding: 10px 0;
-            margin-left: 500px;
-        }
 
-        #ad-bar p {
-            margin: 0;
-        }
+#ad-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fbbd1f;
+    color: #000;
+    text-align: center;
+    padding: 10px 0;
+}
+
+#ad-bar p {
+    margin: 0;
+}
+
     </style>
 </head>
 <body>
@@ -128,6 +149,7 @@ a:hover {
                         var movieCard = $('<div class="movie-card">' +
                             '<h2 class="movie-title">' + movie.title + '</h2>' +
                             '<p class="movie-year">Year: ' + movie.year + '</p>' +
+                            '<div class="movie-image"></div>' + // Create a div for the movie image
                             '</div>');
                         movieList.append(movieCard);
     
@@ -153,9 +175,8 @@ a:hover {
                         var randomDogMedia = '<img src="' + data.url + '" alt="Random Dog">';
                     }
     
-                    // Append the random dog media to the movie card
-                    movieCard.append(randomDogMedia);
-                    console.log(randomDogMedia)
+                    // Set the random dog media as the content of the movie-image div
+                    movieCard.find('.movie-image').html(randomDogMedia);
                 })
                 .catch(error => {
                     console.error('Error fetching random dog image:', error);
@@ -166,5 +187,6 @@ a:hover {
             fetchPosts(); // Fetch and display movie data on page load
         });
     </script>
+    
 </body>
 </html>
