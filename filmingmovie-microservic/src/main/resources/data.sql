@@ -1,0 +1,10 @@
+INSERT INTO movie (movid_id, title, year) VALUES (90, 'John','1990-05-15');
+INSERT INTO movie (movid_id, title, year) VALUES (91, 'Jane','1985-08-22');
+INSERT INTO movie (movid_id, title, year) VALUES (92, 'Michael', '1988-11-10');
+INSERT INTO movie (movid_id, title, year) VALUES (93, 'Emily','1992-03-03');
+INSERT INTO movie (movid_id, title, year) VALUES (94, 'David','1993-09-18');
+INSERT INTO movie (movid_id, title, year) VALUES (95, 'Jessica','1991-06-25');
+INSERT INTO movie (movid_id, title, year) VALUES (96, 'Christopher','1987-04-12');
+INSERT INTO movie (movid_id, title, year) VALUES (97, 'Amanda','1994-12-07');
+INSERT INTO movie (movid_id, title, year) VALUES (98, 'William','1989-02-28');
+INSERT INTO movie (movid_id, title, year) VALUES (99, 'Olivia','1995-07-09');
