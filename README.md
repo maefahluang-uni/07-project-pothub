@@ -115,15 +115,19 @@ In `filmingmovie-microservice`, This interface is a Spring Data repository that 
 # PubSub Model
 ![Alt text](Pubsub.png)
 # Complete Web-front
+
 ### Movie.html
   - Show result
+  - GET
+  - POST
+  - PUT
+  - Delete
 ### AddMovie.html
   - `title` (text)
   - `year` (datetime-local)
-### AddDirector.html
-  - `firstname` (text)
-  - `lastname`  (text)
-  - `birthday`  (date)
+### UpdateMovie.html
+ - `title` (text)
+  - `year` (datetime-local)
 # List your group's member's below.
 1. `652110280` Nuddanai Klaiklin
 2. `652110318` Jeeraphat Chantra
